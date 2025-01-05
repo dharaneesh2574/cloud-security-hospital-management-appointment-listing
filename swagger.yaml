@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Hospital Appointments Listing API
+  version: 1.0.0
+
+paths:
+  /appointments:
+    get:
+      summary: Fetch All Appointments
+      responses:
+        '200':
+          description: A list of appointments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '500':
+          description: Internal Server Error
+
+  /appointments/{uhid}:
+    get:
+      summary: Fetch Appointment by UHID
+      parameters:
+        - in: path
+          name: uhid
+          required: true
+          schema:
+            type: string
+          description: Unique UHID of the patient
+      responses:
+        '200':
+          description: Appointments for the specified UHID
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appointment'
+        '404':
+          description: Patient not found
+        '500':
+          description: Internal Server Error
+
+components:
+  schemas:
+    Appointment:
+      type: object
+      properties:
+        patientName:
+          type: string
+          example: John Doe
+        age:
+          type: integer
+          example: 45
+        UHID:
+          type: string
+          example: UH123456
+        appointmentDate:
+          type: string
+          format: date
+          example: 2025-01-10
+        appointmentTime:
+          type: string
+          example: 14:30
+        doctorName:
+          type: string
+          example: Dr. Smith
+        department:
+          type: string
+          example: Cardiology

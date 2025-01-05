@@ -1,9 +1,7 @@
 const Patient = require('../models/patientModel');
 const Doctor = require('../models/doctorModel');
-const Department = require('../models/departmentModel');
-
-// Fetch All Appointments
-exports.getAllAppointments = async (req, res) => {
+// controllers/appointmentController.js
+const getAllAppointments = async (req, res) => {
     try {
         const appointments = [];
         const patients = await Patient.find();
@@ -42,8 +40,7 @@ exports.getAllAppointments = async (req, res) => {
     }
 };
 
-// Fetch Appointment by UHID
-exports.getAppointmentByUHID = async (req, res) => {
+const getAppointmentsByUHID = async (req, res) => {
     const uhid = req.params.uhid;
     try {
         const patient = await Patient.findOne({ UHID: uhid });
@@ -81,3 +78,5 @@ exports.getAppointmentByUHID = async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
+
+module.exports = { getAllAppointments, getAppointmentsByUHID };
