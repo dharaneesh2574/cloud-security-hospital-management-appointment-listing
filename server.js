@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger.yaml');
+const cors = requie('cors');
 
 // Initialize App
 const app = express();
@@ -11,7 +12,7 @@ const PORT = 3000;
 
 // Middleware
 app.use(bodyParser.json());
-
+app.use(cors()); 
 // MongoDB Connection
 mongoose.connect(
     'mongodb+srv://CS_HOSPITALS:Gq1ixBRGVMb8BdH7@cluster0.tt3fg.mongodb.net/hospital?retryWrites=true&w=majority&appName=Cluster0',
